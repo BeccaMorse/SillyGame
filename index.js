@@ -1,5 +1,7 @@
+var fabric = require('fabric').fabric
+
 document.addEventListener("DOMContentLoaded", () => { 
-    var canvas = new fabric.Canvas('c');
+    var canvas = new fabric.Canvas('myCanvas');
     // create a rectangle object
     var rect = new fabric.Rect({
       left: 100,
