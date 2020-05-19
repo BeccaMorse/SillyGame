@@ -1,0 +1,6 @@
+maybe center text in spaces vertically
+possibly have variable number of spaces as an option
+
+next: 
+JSON file to hold the data
+make script to cycle through locations and JSON data
