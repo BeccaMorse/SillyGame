@@ -1,5 +1,7 @@
 var fabric = require('fabric').fabric
 
+var data = require('./data.json')
+
 var makeSpace = function (canvas, title, instructions, left, top) {
   var startLeft = 50
   var startTop = 50
@@ -27,9 +29,9 @@ var makeSpace = function (canvas, title, instructions, left, top) {
   var spaceInstruction = new fabric.Textbox(instructions, {
     fontWeight: 'normal',
     fontSize: 18,
-    top: totalTop + 30,
+    top: totalTop + 60,
     left: totalLeft + 5,
-    width: 200,
+    width: 190,
     height: 170
   });
   canvas.add(space);
@@ -39,22 +41,12 @@ var makeSpace = function (canvas, title, instructions, left, top) {
 
 document.addEventListener("DOMContentLoaded", () => { 
     var canvas = new fabric.Canvas('myCanvas')
-    makeSpace(canvas,"Title", "Instructions",0,0)
-    makeSpace(canvas,"Title", "Instructions",0,1)
-    makeSpace(canvas,"Title", "Instructions",0,2)
-    makeSpace(canvas,"Title", "Instructions",0,3)
-    makeSpace(canvas,"Title", "Instructions",0,4)
-    makeSpace(canvas,"Title", "Instructions",1,0)
-    makeSpace(canvas,"Title", "Instructions",2,0)
-    makeSpace(canvas,"Title", "Instructions",3,0)
-    makeSpace(canvas,"Title", "Instructions",4,0)
-    makeSpace(canvas,"Title", "Instructions",1,4)
-    makeSpace(canvas,"Title", "Instructions",2,4)
-    makeSpace(canvas,"Title", "Instructions",3,4)
-    makeSpace(canvas,"Title", "Instructions",4,4)
-    makeSpace(canvas,"Title", "Instructions",4,1)
-    makeSpace(canvas,"Title", "Instructions",4,2)
-    makeSpace(canvas,"Title", "Instructions",4,3)
-
-
+    for (i = 0; i < data.length; i++) {
+      console.log(data[i])
+      makeSpace(canvas,
+        data[i].title,
+        data[i].instructions,
+        data[i].top,
+        data[i].left)
+    }
 })
