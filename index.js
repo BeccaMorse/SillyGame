@@ -3,10 +3,18 @@ var fabric = require('fabric').fabric
 var data = require('./data.json')
 
 var makeSpace = function (canvas, title, instructions, left, top) {
+  var spaceSize = 180
+
+  var fontSize = spaceSize / 12
+  var padding  = spaceSize / 20
+
+  var titleHeight = spaceSize / 10
+  var instructionHeight = spaceSize / 2
+
   var startLeft = 50
   var startTop = 50
-  var offsetLeft = left * 200
-  var offsetTop = top * 200
+  var offsetLeft = left * spaceSize
+  var offsetTop = top * spaceSize
   var totalLeft = startLeft + offsetLeft
   var totalTop = startTop + offsetTop
   var space = new fabric.Rect({
@@ -14,26 +22,24 @@ var makeSpace = function (canvas, title, instructions, left, top) {
     top: totalTop,
     stroke: 'black',
     fill: 'white',
-    width: 200,
-    height: 200
+    width: spaceSize,
+    height: spaceSize
   });
   var spaceTitle = new fabric.Textbox(title, {
     fontWeight: 'bold',
-    fontSize: 20,
-    width: 200,
-    height: 30,
+    fontSize: fontSize * 1.10,
+    width: spaceSize,
     textAlign: 'center',
     originY: 'center',
-    top: totalTop + 30,
+    top: totalTop + titleHeight,
     left: totalLeft
   });
   var spaceInstruction = new fabric.Textbox(instructions, {
     fontWeight: 'normal',
-    fontSize: 18,
-    top: totalTop + 110,
-    left: totalLeft + 5,
-    width: 190,
-    height: 170,
+    fontSize: fontSize,
+    top: totalTop + instructionHeight,
+    left: totalLeft + padding,
+    width: spaceSize - (padding * 2),
     textAlign: 'center',
     originY: 'center'
   });
