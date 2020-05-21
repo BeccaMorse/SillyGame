@@ -50,6 +50,16 @@ var makeSpace = function (canvas, title, instructions, left, top) {
 
 document.addEventListener("DOMContentLoaded", () => { 
     var canvas = new fabric.Canvas('myCanvas')
+    var gameName = new fabric.Text('Silly Game', {
+      top: 50 + 360,
+      left: 50 + 540,
+      originX: 'center',
+      originY: 'center',
+      fontSize: 80,
+      fontFamily: 'Comic Sans MS'
+    })
+    gameName.rotate(-25)
+    canvas.add(gameName)
     for (i = 0; i < data.length; i++) {
       console.log(data[i])
       makeSpace(canvas,
