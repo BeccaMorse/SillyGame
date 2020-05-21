@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
       makeSpace(canvas,
         data[i].title,
         data[i].instructions,
-        data[i].top,
-        data[i].left)
+        data[i].left,
+        data[i].top)
     }
 })
