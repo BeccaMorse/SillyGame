@@ -1,8 +1,6 @@
 maybe center text in spaces vertically
 possibly have variable number of spaces as an option
 make script to cycle through locations and JSON data
-
-next: 
-center canvas on page
 vertically center text in spaces
 move title down to add padding in space
+center canvas on page

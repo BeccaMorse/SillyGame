@@ -11,15 +11,11 @@ var makeSpace = function (canvas, title, instructions, left, top) {
   var titleHeight = spaceSize / 10
   var instructionHeight = spaceSize / 2
 
-  var startLeft = 50
-  var startTop = 50
   var offsetLeft = left * spaceSize
   var offsetTop = top * spaceSize
-  var totalLeft = startLeft + offsetLeft
-  var totalTop = startTop + offsetTop
   var space = new fabric.Rect({
-    left: totalLeft,
-    top: totalTop,
+    left: offsetLeft,
+    top: offsetTop,
     stroke: 'black',
     fill: 'white',
     width: spaceSize,
@@ -31,14 +27,14 @@ var makeSpace = function (canvas, title, instructions, left, top) {
     width: spaceSize,
     textAlign: 'center',
     originY: 'center',
-    top: totalTop + titleHeight,
-    left: totalLeft
+    top: offsetTop + titleHeight,
+    left: offsetLeft
   });
   var spaceInstruction = new fabric.Textbox(instructions, {
     fontWeight: 'normal',
     fontSize: fontSize,
-    top: totalTop + instructionHeight,
-    left: totalLeft + padding,
+    top: offsetTop + instructionHeight,
+    left: offsetLeft + padding,
     width: spaceSize - (padding * 2),
     textAlign: 'center',
     originY: 'center'
@@ -51,8 +47,8 @@ var makeSpace = function (canvas, title, instructions, left, top) {
 document.addEventListener("DOMContentLoaded", () => { 
     var canvas = new fabric.Canvas('myCanvas')
     var gameName = new fabric.Text('Silly Game', {
-      top: 50 + 360,
-      left: 50 + 540,
+      top: 360,
+      left: 540,
       originX: 'center',
       originY: 'center',
       fontSize: 80,
