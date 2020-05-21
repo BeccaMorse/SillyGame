@@ -23,16 +23,19 @@ var makeSpace = function (canvas, title, instructions, left, top) {
     width: 200,
     height: 30,
     textAlign: 'center',
-    top: totalTop,
+    originY: 'center',
+    top: totalTop + 30,
     left: totalLeft
   });
   var spaceInstruction = new fabric.Textbox(instructions, {
     fontWeight: 'normal',
     fontSize: 18,
-    top: totalTop + 60,
+    top: totalTop + 110,
     left: totalLeft + 5,
     width: 190,
-    height: 170
+    height: 170,
+    textAlign: 'center',
+    originY: 'center'
   });
   canvas.add(space);
   canvas.add(spaceTitle);
