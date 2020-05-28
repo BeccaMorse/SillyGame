@@ -1,5 +1,4 @@
 var fabric = require('fabric').fabric
-
 var data = require('./data.json')
 
 var makeSpace = function (canvas, title, instructions, left, top) {
@@ -46,7 +45,11 @@ var makeSpace = function (canvas, title, instructions, left, top) {
   canvas.add(spaceTitle);
   canvas.add(spaceInstruction);
 }
-
+var movePlayerMarker = function (spaceIndex, playerMarker) {
+  playerMarker.top = data[spaceIndex].top * 180 + 150
+  playerMarker.left = data[spaceIndex].left * 180 + 85
+  // 180 is hardcoded space size, refactor later
+}
 document.addEventListener("DOMContentLoaded", () => { 
     var canvas = new fabric.Canvas('myCanvas')
     var gameName = new fabric.Text('Silly Game', {
@@ -68,4 +71,13 @@ document.addEventListener("DOMContentLoaded", () => {
         data[i].left,
         data[i].top)
     }
+    var playerMarker = new fabric.Rect({
+      left: 85,
+      top: 150,
+      stroke: 'black',
+      fill: 'Blue',
+      width: 10,
+      height: 10
+    })
+    canvas.add(playerMarker)
 })

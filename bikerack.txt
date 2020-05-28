@@ -12,6 +12,7 @@ create player markers
 create indicator of whose turn it is
 add dice and roll capability
 move player markers when player has rolled
+add animation to movement
 
 
 maybe: allow 'select number of players' option.?
