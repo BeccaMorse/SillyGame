@@ -1,6 +1,17 @@
+done:
 maybe center text in spaces vertically
 possibly have variable number of spaces as an option
 make script to cycle through locations and JSON data
 vertically center text in spaces
 move title down to add padding in space
 center canvas on page
+affix board components so they are not moveable.
+
+to do:
+create player markers
+create indicator of whose turn it is
+add dice and roll capability
+move player markers when player has rolled
+
+
+maybe: allow 'select number of players' option.?

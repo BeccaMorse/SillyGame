@@ -39,6 +39,9 @@ var makeSpace = function (canvas, title, instructions, left, top) {
     textAlign: 'center',
     originY: 'center'
   });
+  space.selectable = false
+  spaceTitle.selectable = false
+  spaceInstruction.selectable = false
   canvas.add(space);
   canvas.add(spaceTitle);
   canvas.add(spaceInstruction);
@@ -55,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
       fontFamily: 'Comic Sans MS'
     })
     gameName.rotate(-25)
+    gameName.selectable = false
     canvas.add(gameName)
     for (i = 0; i < data.length; i++) {
       console.log(data[i])
