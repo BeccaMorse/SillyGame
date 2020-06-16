@@ -1,7 +1,9 @@
 var fabric = require('fabric').fabric
 var data = require('./data.json')
 
-var makeSpace = function (canvas, title, instructions, left, top) {
+var Space = require('./space.js')
+
+var makeSpace = function (canvas, space) {
   var spaceSize = 180
 
   var fontSize = spaceSize / 12
@@ -10,9 +12,9 @@ var makeSpace = function (canvas, title, instructions, left, top) {
   var titleHeight = spaceSize / 10
   var instructionHeight = spaceSize / 2
 
-  var offsetLeft = left * spaceSize
-  var offsetTop = top * spaceSize
-  var space = new fabric.Rect({
+  var offsetLeft = space.left * spaceSize
+  var offsetTop = space.top * spaceSize
+  var spaceSquare = new fabric.Rect({
     left: offsetLeft,
     top: offsetTop,
     stroke: 'black',
@@ -20,7 +22,7 @@ var makeSpace = function (canvas, title, instructions, left, top) {
     width: spaceSize,
     height: spaceSize
   });
-  var spaceTitle = new fabric.Textbox(title, {
+  var spaceTitle = new fabric.Textbox(space.title, {
     fontWeight: 'bold',
     fontSize: fontSize * 1.10,
     width: spaceSize,
@@ -29,7 +31,7 @@ var makeSpace = function (canvas, title, instructions, left, top) {
     top: offsetTop + titleHeight,
     left: offsetLeft
   });
-  var spaceInstruction = new fabric.Textbox(instructions, {
+  var spaceInstruction = new fabric.Textbox(space.instructions, {
     fontWeight: 'normal',
     fontSize: fontSize,
     top: offsetTop + instructionHeight,
@@ -38,10 +40,10 @@ var makeSpace = function (canvas, title, instructions, left, top) {
     textAlign: 'center',
     originY: 'center'
   });
-  space.selectable = false
+  spaceSquare.selectable = false
   spaceTitle.selectable = false
   spaceInstruction.selectable = false
-  canvas.add(space);
+  canvas.add(spaceSquare);
   canvas.add(spaceTitle);
   canvas.add(spaceInstruction);
 }
@@ -71,12 +73,12 @@ document.addEventListener("DOMContentLoaded", () => {
     gameName.selectable = false
     canvas.add(gameName)
     for (i = 0; i < data.length; i++) {
-      console.log(data[i])
-      makeSpace(canvas,
+      var space = new Space(
         data[i].title,
         data[i].instructions,
-        data[i].left,
-        data[i].top)
+        data[i].top,
+        data[i].left)
+      makeSpace(canvas, space)
     }
     var playerMarker = new fabric.Rect({
       left: 85,
