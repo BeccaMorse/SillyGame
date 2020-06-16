@@ -19,4 +19,13 @@ describe('Space', function() {
             var space = new Space('Hello', '', 0, 0)
         })
     })
+
+    it('must have a non-negative location', function() {
+        assert.throws(function() {
+            var space = new Space('Hello', 'Do something', -1, 0)
+        })
+        assert.throws(function() {
+            var space = new Space('Hello', 'Do something', 0, -1)
+        })
+    })
 })

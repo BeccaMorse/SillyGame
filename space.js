@@ -8,6 +8,10 @@ module.exports = class Space {
             throw new Error('Must have instructions')
         }
 
+        if (top < 0 || left < 0) {
+            throw new Error('Must have non-negative location')
+        }
+
         this.title = title
         this.instructions = instructions
         this.top = top
