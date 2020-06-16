@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
     canvas.add(gameName)
 
     var board = new Board(data)
-    console.log(board.spaces)
     for (i = 0; i < board.spaces.length; i++) {
       makeSpace(canvas, board.spaces[i])
     }
