@@ -4,6 +4,10 @@ module.exports = class Space {
             throw new Error('Must have a title')
         }
 
+        if (instructions.length == 0) {
+            throw new Error('Must have instructions')
+        }
+
         this.title = title
         this.instructions = instructions
         this.top = top

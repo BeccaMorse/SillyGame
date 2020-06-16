@@ -13,6 +13,7 @@ create indicator of whose turn it is
 add dice and roll capability
 move player markers when player has rolled
 add animation to movement
+make center of board clickable
 
 
 maybe: allow 'select number of players' option.?

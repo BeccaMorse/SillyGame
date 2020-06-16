@@ -13,4 +13,10 @@ describe('Space', function() {
             var space = new Space('', 'Do something', 0, 0)
         })
     })
+
+    it('must have instructions', function() {
+        assert.throws(function() {
+            var space = new Space('Hello', '', 0, 0)
+        })
+    })
 })
