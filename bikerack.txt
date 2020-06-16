@@ -14,6 +14,7 @@ add dice and roll capability
 move player markers when player has rolled
 add animation to movement
 make center of board clickable
-
+test board class
+make a player class
 
 maybe: allow 'select number of players' option.?
