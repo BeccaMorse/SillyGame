@@ -1,7 +1,7 @@
 var fabric = require('fabric').fabric
 var data = require('./data.json')
 
-var Space = require('./space.js')
+var Board = require('./board.js')
 
 var makeSpace = function (canvas, space) {
   var spaceSize = 180
@@ -72,13 +72,11 @@ document.addEventListener("DOMContentLoaded", () => {
     gameName.rotate(-25)
     gameName.selectable = false
     canvas.add(gameName)
-    for (i = 0; i < data.length; i++) {
-      var space = new Space(
-        data[i].title,
-        data[i].instructions,
-        data[i].top,
-        data[i].left)
-      makeSpace(canvas, space)
+
+    var board = new Board(data)
+    console.log(board.spaces)
+    for (i = 0; i < board.spaces.length; i++) {
+      makeSpace(canvas, board.spaces[i])
     }
     var playerMarker = new fabric.Rect({
       left: 85,
