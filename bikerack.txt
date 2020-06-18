@@ -7,14 +7,15 @@ move title down to add padding in space
 center canvas on page
 affix board components so they are not moveable.
 make center of board clickable
+move player marker when player has rolled
 
 to do:
 create player markers
 create indicator of whose turn it is
 add dice and roll capability
-move player markers when player has rolled
 add animation to movement
 test board class
 make a player class
+solve mystery of first click not being recognized for player movement
 
 maybe: allow 'select number of players' option.?

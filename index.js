@@ -1,6 +1,6 @@
 var fabric = require('fabric').fabric
-var data = require('./data.json')
-
+var space_data = require('./spaces.json')
+var player_data = require('./players.json')
 var Board = require('./board.js')
 
 var makeSpace = function (canvas, space) {
@@ -47,14 +47,27 @@ var makeSpace = function (canvas, space) {
   canvas.add(spaceTitle)
   canvas.add(spaceInstruction)
 }
+
+var makePlayer = function (canvas, player) {
+  var playerMarker = new fabric.Rect({
+    left: player.x,
+    top: player.y,
+    stroke: 'black',
+    fill: player.color,
+    width: 10,
+    height: 10
+  })
+  canvas.add(playerMarker)
+  return playerMarker
+}
 var movePlayerMarker = function (spaceIndex, playerMarker) {
-  playerMarker.top = data[spaceIndex].top * 180 + 150
-  playerMarker.left = data[spaceIndex].left * 180 + 85
+  playerMarker.top = space_data[spaceIndex].top * 180 + 150
+  playerMarker.left = space_data[spaceIndex].left * 180 + 85
   // 180 is hardcoded space size, refactor later
 }
 var moveForward = function (playerLocation, dieRoll, playerMarker) {
   playerLocation += dieRoll
-  playerLocation %= data.length
+  playerLocation %= space_data.length
   movePlayerMarker(playerLocation, playerMarker)
   return playerLocation
 }
@@ -82,21 +95,17 @@ document.addEventListener("DOMContentLoaded", () => {
     gameName.selectable = false
     canvas.add(gameName)
 
-    var board = new Board(data)
+    var board = new Board(space_data, player_data)
     for (i = 0; i < board.spaces.length; i++) {
       makeSpace(canvas, board.spaces[i])
     }
-    var playerMarker = new fabric.Rect({
-      left: 85,
-      top: 150,
-      stroke: 'black',
-      fill: 'Blue',
-      width: 10,
-      height: 10
-    })
-    canvas.add(playerMarker)
+    var playerMarkers = []
+    for (i = 0; i < board.players.length; i++) {
+      playerMarkers.push(makePlayer(canvas, board.players[i]))
+    }
     var playerLocation = 0
     canvas.observe('mouse:up',function () {
-      playerLocation = moveForward(playerLocation,2,playerMarker)
+      playerLocation = moveForward(playerLocation,3,playerMarkers[0])
+      //hard-coded both movement and playermarker index, need to refactor
     })
   })
