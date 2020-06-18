@@ -21,4 +21,9 @@ module.exports = class Board {
             ))
         }
     }
+    movePlayer(playerIndex,dieRoll) {
+        this.players[playerIndex].location += dieRoll
+        this.players[playerIndex].location %= this.spaces.length
+    }
 }
+    

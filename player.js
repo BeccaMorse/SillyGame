@@ -3,5 +3,6 @@ module.exports = class Player {
         this.color = color
         this.x = x
         this.y = y
+        this.location = 0
     }
 }

@@ -64,14 +64,8 @@ var movePlayerMarker = function (spaceIndex, playerMarker) {
   playerMarker.top = space_data[spaceIndex].top * 180 + 150
   playerMarker.left = space_data[spaceIndex].left * 180 + 85
   // 180 is hardcoded space size, refactor later
+  //150 and 85 are player properties, refactor later
 }
-var moveForward = function (playerLocation, dieRoll, playerMarker) {
-  playerLocation += dieRoll
-  playerLocation %= space_data.length
-  movePlayerMarker(playerLocation, playerMarker)
-  return playerLocation
-}
-
 document.addEventListener("DOMContentLoaded", () => { 
     var canvas = new fabric.Canvas('myCanvas')
     var background = new fabric.Rect({
@@ -103,9 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
     for (i = 0; i < board.players.length; i++) {
       playerMarkers.push(makePlayer(canvas, board.players[i]))
     }
-    var playerLocation = 0
     canvas.observe('mouse:up',function () {
-      playerLocation = moveForward(playerLocation,3,playerMarkers[0])
+      board.movePlayer(0,3)
+      movePlayerMarker(board.players[0].location, playerMarkers[0])
       //hard-coded both movement and playermarker index, need to refactor
     })
   })
