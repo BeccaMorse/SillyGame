@@ -43,9 +43,9 @@ var makeSpace = function (canvas, space) {
   spaceSquare.selectable = false
   spaceTitle.selectable = false
   spaceInstruction.selectable = false
-  canvas.add(spaceSquare);
-  canvas.add(spaceTitle);
-  canvas.add(spaceInstruction);
+  canvas.add(spaceSquare)
+  canvas.add(spaceTitle)
+  canvas.add(spaceInstruction)
 }
 var movePlayerMarker = function (spaceIndex, playerMarker) {
   playerMarker.top = data[spaceIndex].top * 180 + 150
@@ -61,6 +61,15 @@ var moveForward = function (playerLocation, dieRoll, playerMarker) {
 
 document.addEventListener("DOMContentLoaded", () => { 
     var canvas = new fabric.Canvas('myCanvas')
+    var background = new fabric.Rect({
+      left: 0,
+      top: 0,
+      fill: 'white',
+      width: 1082,
+      height: 722
+    })
+    background.selectable = false
+    canvas.add(background)
     var gameName = new fabric.Text('Silly Game', {
       top: 360,
       left: 540,
