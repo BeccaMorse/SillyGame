@@ -2,6 +2,7 @@ var fabric = require('fabric').fabric
 var space_data = require('./spaces.json')
 var player_data = require('./players.json')
 var Board = require('./board.js')
+var board = new Board(space_data, player_data)
 
 var makeSpace = function (canvas, space) {
   var spaceSize = 180
@@ -57,14 +58,15 @@ var makePlayer = function (canvas, player) {
     width: 10,
     height: 10
   })
+  playerMarker.selectable = false
   canvas.add(playerMarker)
   return playerMarker
 }
-var movePlayerMarker = function (spaceIndex, playerMarker) {
-  playerMarker.top = space_data[spaceIndex].top * 180 + 150
-  playerMarker.left = space_data[spaceIndex].left * 180 + 85
+var movePlayerMarker = function (currentPlayer, playerMarker) {
+  var spaceIndex = board.players[currentPlayer].location
+  playerMarker.top = space_data[spaceIndex].top * 180 + board.players[currentPlayer].y
+  playerMarker.left = space_data[spaceIndex].left * 180 + board.players[currentPlayer].x
   // 180 is hardcoded space size, refactor later
-  //150 and 85 are player properties, refactor later
 }
 document.addEventListener("DOMContentLoaded", () => { 
     var canvas = new fabric.Canvas('myCanvas')
@@ -99,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
     rollDisplay.selectable = false
     canvas.add(rollDisplay)
 
-    var board = new Board(space_data, player_data)
     for (i = 0; i < board.spaces.length; i++) {
       makeSpace(canvas, board.spaces[i])
     }
@@ -107,13 +108,15 @@ document.addEventListener("DOMContentLoaded", () => {
     for (i = 0; i < board.players.length; i++) {
       playerMarkers.push(makePlayer(canvas, board.players[i]))
     }
+    var currentPlayer = 0
     canvas.observe('mouse:down',function () {
-      var currentPlayer = 0
       var dieRoll = Math.ceil(Math.random() * 6)
       console.log(dieRoll)
       rollDisplay.text = "Current roll: " + dieRoll
       board.movePlayer(currentPlayer, dieRoll)
-      movePlayerMarker(board.players[currentPlayer].location, playerMarkers[currentPlayer])
+      movePlayerMarker(currentPlayer, playerMarkers[currentPlayer])
+      currentPlayer += 1
+      currentPlayer %= board.players.length
       //hard-coded both movement and playermarker index, need to refactor
     })
   })

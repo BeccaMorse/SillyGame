@@ -10,12 +10,11 @@ make center of board clickable
 move player marker when player has rolled
 make a player class
 test board class
+add dice and roll capability
+create player markers
 
 to do:
-create player markers
 create indicator of whose turn it is
-add dice and roll capability
 add animation to movement
-solve mystery of first click not being recognized for player movement
 
 maybe: allow 'select number of players' option.?
