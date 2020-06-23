@@ -8,14 +8,14 @@ center canvas on page
 affix board components so they are not moveable.
 make center of board clickable
 move player marker when player has rolled
+make a player class
+test board class
 
 to do:
 create player markers
 create indicator of whose turn it is
 add dice and roll capability
 add animation to movement
-test board class
-make a player class
 solve mystery of first click not being recognized for player movement
 
 maybe: allow 'select number of players' option.?
