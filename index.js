@@ -90,16 +90,16 @@ document.addEventListener("DOMContentLoaded", () => {
     gameName.rotate(-25)
     gameName.selectable = false
     canvas.add(gameName)
-    var rollDisplay = new fabric.Text('Current roll: ', {
-      top: 250,
-      left: 300,
-      originX: 'center',
+    var turnIndicator = new fabric.Text("Click to start", {
+      top: 220,
+      left: 200,
+      originX: 'left',
       originY: 'center',
       fontSize: 24,
       fontFamily: 'Comic Sans MS'
     })
-    rollDisplay.selectable = false
-    canvas.add(rollDisplay)
+    turnIndicator.selectable = false
+    canvas.add(turnIndicator)
 
     for (i = 0; i < board.spaces.length; i++) {
       makeSpace(canvas, board.spaces[i])
@@ -109,14 +109,25 @@ document.addEventListener("DOMContentLoaded", () => {
       playerMarkers.push(makePlayer(canvas, board.players[i]))
     }
     var currentPlayer = 0
-    canvas.observe('mouse:down',function () {
-      var dieRoll = Math.ceil(Math.random() * 6)
-      console.log(dieRoll)
-      rollDisplay.text = "Current roll: " + dieRoll
-      board.movePlayer(currentPlayer, dieRoll)
-      movePlayerMarker(currentPlayer, playerMarkers[currentPlayer])
-      currentPlayer += 1
-      currentPlayer %= board.players.length
-      //hard-coded both movement and playermarker index, need to refactor
+    var dieRoll = 0
+    var gameState = "followInstructions"
+    canvas.on('mouse:down',function () {
+      if (gameState == "clickToRoll") {
+        dieRoll = Math.ceil(Math.random() * 6)
+        turnIndicator.text = "You rolled " + dieRoll + ", click to move"
+        gameState = "clickToMove"
+      } else if (gameState == "clickToMove") {
+        board.movePlayer(currentPlayer, dieRoll)
+        movePlayerMarker(currentPlayer, playerMarkers[currentPlayer])
+        var playerColor = board.players[currentPlayer].color
+        turnIndicator.text = playerColor + " player: Follow instructions"
+        gameState = "followInstructions"
+      } else if (gameState == "followInstructions") {
+        currentPlayer += 1
+        currentPlayer %= board.players.length
+        var playerColor = board.players[currentPlayer].color
+        turnIndicator.text = playerColor + " player: Click to roll"
+        gameState = "clickToRoll"
+      }
     })
   })

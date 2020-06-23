@@ -12,9 +12,9 @@ make a player class
 test board class
 add dice and roll capability
 create player markers
+create indicator of whose turn it is
 
 to do:
-create indicator of whose turn it is
 add animation to movement
 
 maybe: allow 'select number of players' option.?
