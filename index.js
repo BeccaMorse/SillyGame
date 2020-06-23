@@ -88,6 +88,16 @@ document.addEventListener("DOMContentLoaded", () => {
     gameName.rotate(-25)
     gameName.selectable = false
     canvas.add(gameName)
+    var rollDisplay = new fabric.Text('Current roll: ', {
+      top: 250,
+      left: 300,
+      originX: 'center',
+      originY: 'center',
+      fontSize: 24,
+      fontFamily: 'Comic Sans MS'
+    })
+    rollDisplay.selectable = false
+    canvas.add(rollDisplay)
 
     var board = new Board(space_data, player_data)
     for (i = 0; i < board.spaces.length; i++) {
@@ -97,9 +107,13 @@ document.addEventListener("DOMContentLoaded", () => {
     for (i = 0; i < board.players.length; i++) {
       playerMarkers.push(makePlayer(canvas, board.players[i]))
     }
-    canvas.observe('mouse:up',function () {
-      board.movePlayer(0,3)
-      movePlayerMarker(board.players[0].location, playerMarkers[0])
+    canvas.observe('mouse:down',function () {
+      var currentPlayer = 0
+      var dieRoll = Math.ceil(Math.random() * 6)
+      console.log(dieRoll)
+      rollDisplay.text = "Current roll: " + dieRoll
+      board.movePlayer(currentPlayer, dieRoll)
+      movePlayerMarker(board.players[currentPlayer].location, playerMarkers[currentPlayer])
       //hard-coded both movement and playermarker index, need to refactor
     })
   })
