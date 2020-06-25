@@ -15,6 +15,9 @@ create player markers
 create indicator of whose turn it is
 
 to do:
+possibly refactor/  move players to game engine 
+move things out of index.js / make smaller
 add animation to movement
+TEST the next function
 
 maybe: allow 'select number of players' option.?
