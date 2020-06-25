@@ -1,8 +1,8 @@
 var fabric = require('fabric').fabric
 var space_data = require('./spaces.json')
 var player_data = require('./players.json')
-var Board = require('./board.js')
-var board = new Board(space_data, player_data)
+var GameEngine = require('./gameEngine.js')
+var gameEngine = new GameEngine(space_data, player_data)
 
 var makeSpace = function (canvas, space) {
   var spaceSize = 180
@@ -63,9 +63,9 @@ var makePlayer = function (canvas, player) {
   return playerMarker
 }
 var movePlayerMarker = function (currentPlayer, playerMarker) {
-  var spaceIndex = board.players[currentPlayer].location
-  playerMarker.top = space_data[spaceIndex].top * 180 + board.players[currentPlayer].y
-  playerMarker.left = space_data[spaceIndex].left * 180 + board.players[currentPlayer].x
+  var spaceIndex = gameEngine.board.players[currentPlayer].location
+  playerMarker.top = space_data[spaceIndex].top * 180 + gameEngine.board.players[currentPlayer].y
+  playerMarker.left = space_data[spaceIndex].left * 180 + gameEngine.board.players[currentPlayer].x
   // 180 is hardcoded space size, refactor later
 }
 document.addEventListener("DOMContentLoaded", () => { 
@@ -101,33 +101,17 @@ document.addEventListener("DOMContentLoaded", () => {
     turnIndicator.selectable = false
     canvas.add(turnIndicator)
 
-    for (i = 0; i < board.spaces.length; i++) {
-      makeSpace(canvas, board.spaces[i])
+    for (i = 0; i < gameEngine.board.spaces.length; i++) {
+      makeSpace(canvas, gameEngine.board.spaces[i])
     }
     var playerMarkers = []
-    for (i = 0; i < board.players.length; i++) {
-      playerMarkers.push(makePlayer(canvas, board.players[i]))
+    for (i = 0; i < gameEngine.board.players.length; i++) {
+      playerMarkers.push(makePlayer(canvas, gameEngine.board.players[i]))
     }
-    var currentPlayer = 0
-    var dieRoll = 0
-    var gameState = "followInstructions"
     canvas.on('mouse:down',function () {
-      if (gameState == "clickToRoll") {
-        dieRoll = Math.ceil(Math.random() * 6)
-        turnIndicator.text = "You rolled " + dieRoll + ", click to move"
-        gameState = "clickToMove"
-      } else if (gameState == "clickToMove") {
-        board.movePlayer(currentPlayer, dieRoll)
-        movePlayerMarker(currentPlayer, playerMarkers[currentPlayer])
-        var playerColor = board.players[currentPlayer].color
-        turnIndicator.text = playerColor + " player: Follow instructions"
-        gameState = "followInstructions"
-      } else if (gameState == "followInstructions") {
-        currentPlayer += 1
-        currentPlayer %= board.players.length
-        var playerColor = board.players[currentPlayer].color
-        turnIndicator.text = playerColor + " player: Click to roll"
-        gameState = "clickToRoll"
-      }
+      turnIndicator.text = gameEngine.next()
+      var currentPlayer = gameEngine.currentPlayer
+      movePlayerMarker(currentPlayer, playerMarkers[currentPlayer])
+
     })
   })
