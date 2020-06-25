@@ -1,8 +1,8 @@
 var fabric = require('fabric').fabric
-var space_data = require('./spaces.json')
-var player_data = require('./players.json')
+var spaceData = require('./spaces.json')
+var playerData = require('./players.json')
 var GameEngine = require('./gameEngine.js')
-var gameEngine = new GameEngine(space_data, player_data)
+var gameEngine = new GameEngine(spaceData, playerData)
 
 var makeSpace = function (canvas, space) {
   var spaceSize = 180
@@ -64,8 +64,8 @@ var makePlayer = function (canvas, player) {
 }
 var movePlayerMarker = function (currentPlayer, playerMarker) {
   var spaceIndex = gameEngine.board.players[currentPlayer].location
-  playerMarker.top = space_data[spaceIndex].top * 180 + gameEngine.board.players[currentPlayer].y
-  playerMarker.left = space_data[spaceIndex].left * 180 + gameEngine.board.players[currentPlayer].x
+  playerMarker.top = spaceData[spaceIndex].top * 180 + gameEngine.board.players[currentPlayer].y
+  playerMarker.left = spaceData[spaceIndex].left * 180 + gameEngine.board.players[currentPlayer].x
   // 180 is hardcoded space size, refactor later
 }
 document.addEventListener("DOMContentLoaded", () => { 

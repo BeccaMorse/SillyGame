@@ -2,22 +2,22 @@ var Space = require('./space.js')
 var Player = require('./player.js')
 
 module.exports = class Board {
-    constructor(space_data, player_data) {
+    constructor(spaceData, playerData) {
         this.spaces = new Array
-        for (var i = 0; i < space_data.length; i++) {
+        for (var i = 0; i < spaceData.length; i++) {
             this.spaces.push(new Space(
-              space_data[i].title,
-              space_data[i].instructions,
-              space_data[i].top,
-              space_data[i].left)
+              spaceData[i].title,
+              spaceData[i].instructions,
+              spaceData[i].top,
+              spaceData[i].left)
             )
         }
         this.players = new Array
-        for (var i = 0; i < player_data.length; i++) {
+        for (var i = 0; i < playerData.length; i++) {
             this.players.push(new Player(
-                player_data[i].color,
-                player_data[i].x,
-                player_data[i].y
+                playerData[i].color,
+                playerData[i].x,
+                playerData[i].y
             ))
         }
     }
