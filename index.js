@@ -90,11 +90,13 @@ document.addEventListener("DOMContentLoaded", () => {
     gameName.rotate(-25)
     gameName.selectable = false
     canvas.add(gameName)
-    var turnIndicator = new fabric.Text("Click to start", {
+    var turnIndicator = new fabric.Textbox("Click to start", {
       top: 220,
       left: 200,
+      height: 600,
+      width: 400,
       originX: 'left',
-      originY: 'center',
+      originY: 'top',
       fontSize: 24,
       fontFamily: 'Comic Sans MS'
     })

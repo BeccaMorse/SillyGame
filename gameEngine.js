@@ -15,8 +15,10 @@ module.exports = class GameEngine {
           } else if (this.gameState == "clickToMove") {
             this.board.movePlayer(this.currentPlayer, this.dieRoll)
             var playerColor = this.board.players[this.currentPlayer].color
+            var playerLocation = this.board.players[this.currentPlayer].location
+            var instructions = this.board.spaces[playerLocation].instructions
             this.gameState = "followInstructions"
-            return playerColor + " player: Follow instructions"
+            return playerColor + " player, " + instructions
           } else if (this.gameState == "followInstructions") {
             this.currentPlayer += 1
             this.currentPlayer %= this.board.players.length
