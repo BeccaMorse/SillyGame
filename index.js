@@ -4,6 +4,8 @@ var playerData = require('./players.json')
 var GameEngine = require('./gameEngine.js')
 var gameEngine = new GameEngine(spaceData, playerData)
 
+var spaceSize = window.innerWidth / 8
+
 var addToCanvas = function(canvas, fabricElement) {
   fabricElement.selectable = false
   canvas.add(fabricElement)
@@ -11,8 +13,6 @@ var addToCanvas = function(canvas, fabricElement) {
 }
 
 var makeSpace = function (canvas, space) {
-  var spaceSize = 180
-
   var fontSize = spaceSize / 12
   var padding  = spaceSize / 20
 
@@ -52,19 +52,18 @@ var makeSpace = function (canvas, space) {
 
 var makePlayer = function (canvas, player) {
   return addToCanvas(canvas, new fabric.Rect({
-    left: player.x,
-    top: player.y,
+    left: player.x * spaceSize,
+    top: player.y * spaceSize,
     stroke: 'black',
     fill: player.color,
-    width: 10,
-    height: 10
+    width: spaceSize / 18,
+    height: spaceSize / 18
   }))
 }
 var movePlayerMarker = function (currentPlayer, playerMarker) {
   var spaceIndex = gameEngine.players[currentPlayer].location
-  playerMarker.top = spaceData[spaceIndex].top * 180 + gameEngine.players[currentPlayer].y
-  playerMarker.left = spaceData[spaceIndex].left * 180 + gameEngine.players[currentPlayer].x
-  // 180 is hardcoded space size, refactor later
+  playerMarker.top = (spaceData[spaceIndex].top + gameEngine.players[currentPlayer].y) * spaceSize
+  playerMarker.left = (spaceData[spaceIndex].left + gameEngine.players[currentPlayer].x) * spaceSize
 }
 document.addEventListener("DOMContentLoaded", () => { 
     var canvas = new fabric.Canvas('myCanvas')
@@ -76,23 +75,24 @@ document.addEventListener("DOMContentLoaded", () => {
       height: 722
     }))
     var gameName = addToCanvas(canvas, new fabric.Text('Silly Game', {
-      top: 360,
-      left: 540,
+      top: 2 * spaceSize,
+      left: 3 * spaceSize,
       originX: 'center',
       originY: 'center',
-      fontSize: 80,
-      fontFamily: 'Comic Sans MS'
+      fontSize: spaceSize / 3,
+      fontFamily: 'Comic Sans MS',
+      fill: 'Grey'
     }))
     gameName.rotate(-25)
 
     var turnIndicator = addToCanvas(canvas, new fabric.Textbox("Click to start", {
-      top: 220,
-      left: 200,
-      height: 600,
-      width: 400,
+      top: 1.22 * spaceSize,
+      left: 1.11 * spaceSize,
+      height: 3.33 * spaceSize,
+      width: 2.22 * spaceSize,
       originX: 'left',
       originY: 'top',
-      fontSize: 24,
+      fontSize: spaceSize / 7.5,
       fontFamily: 'Comic Sans MS'
     }))
     for (i = 0; i < gameEngine.board.spaces.length; i++) {
