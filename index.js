@@ -4,6 +4,12 @@ var playerData = require('./players.json')
 var GameEngine = require('./gameEngine.js')
 var gameEngine = new GameEngine(spaceData, playerData)
 
+var addToCanvas = function(canvas, fabricElement) {
+  fabricElement.selectable = false
+  canvas.add(fabricElement)
+  return fabricElement
+}
+
 var makeSpace = function (canvas, space) {
   var spaceSize = 180
 
@@ -15,15 +21,16 @@ var makeSpace = function (canvas, space) {
 
   var offsetLeft = space.left * spaceSize
   var offsetTop = space.top * spaceSize
-  var spaceSquare = new fabric.Rect({
+
+  addToCanvas(canvas, new fabric.Rect({
     left: offsetLeft,
     top: offsetTop,
     stroke: 'black',
     fill: 'white',
     width: spaceSize,
     height: spaceSize
-  });
-  var spaceTitle = new fabric.Textbox(space.title, {
+  }))
+  addToCanvas(canvas, new fabric.Textbox(space.title, {
     fontWeight: 'bold',
     fontSize: fontSize * 1.10,
     width: spaceSize,
@@ -31,8 +38,8 @@ var makeSpace = function (canvas, space) {
     originY: 'center',
     top: offsetTop + titleHeight,
     left: offsetLeft
-  });
-  var spaceInstruction = new fabric.Textbox(space.instructions, {
+  }))
+  addToCanvas(canvas, new fabric.Textbox(space.instructions, {
     fontWeight: 'normal',
     fontSize: fontSize,
     top: offsetTop + instructionHeight,
@@ -40,27 +47,18 @@ var makeSpace = function (canvas, space) {
     width: spaceSize - (padding * 2),
     textAlign: 'center',
     originY: 'center'
-  });
-  spaceSquare.selectable = false
-  spaceTitle.selectable = false
-  spaceInstruction.selectable = false
-  canvas.add(spaceSquare)
-  canvas.add(spaceTitle)
-  canvas.add(spaceInstruction)
+  }))
 }
 
 var makePlayer = function (canvas, player) {
-  var playerMarker = new fabric.Rect({
+  return addToCanvas(canvas, new fabric.Rect({
     left: player.x,
     top: player.y,
     stroke: 'black',
     fill: player.color,
     width: 10,
     height: 10
-  })
-  playerMarker.selectable = false
-  canvas.add(playerMarker)
-  return playerMarker
+  }))
 }
 var movePlayerMarker = function (currentPlayer, playerMarker) {
   var spaceIndex = gameEngine.players[currentPlayer].location
@@ -70,27 +68,24 @@ var movePlayerMarker = function (currentPlayer, playerMarker) {
 }
 document.addEventListener("DOMContentLoaded", () => { 
     var canvas = new fabric.Canvas('myCanvas')
-    var background = new fabric.Rect({
+    addToCanvas(canvas, new fabric.Rect({
       left: 0,
       top: 0,
       fill: 'white',
       width: 1082,
       height: 722
-    })
-    background.selectable = false
-    canvas.add(background)
-    var gameName = new fabric.Text('Silly Game', {
+    }))
+    var gameName = addToCanvas(canvas, new fabric.Text('Silly Game', {
       top: 360,
       left: 540,
       originX: 'center',
       originY: 'center',
       fontSize: 80,
       fontFamily: 'Comic Sans MS'
-    })
+    }))
     gameName.rotate(-25)
-    gameName.selectable = false
-    canvas.add(gameName)
-    var turnIndicator = new fabric.Textbox("Click to start", {
+
+    var turnIndicator = addToCanvas(canvas, new fabric.Textbox("Click to start", {
       top: 220,
       left: 200,
       height: 600,
@@ -99,10 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
       originY: 'top',
       fontSize: 24,
       fontFamily: 'Comic Sans MS'
-    })
-    turnIndicator.selectable = false
-    canvas.add(turnIndicator)
-
+    }))
     for (i = 0; i < gameEngine.board.spaces.length; i++) {
       makeSpace(canvas, gameEngine.board.spaces[i])
     }
@@ -114,6 +106,5 @@ document.addEventListener("DOMContentLoaded", () => {
       turnIndicator.text = gameEngine.next()
       var currentPlayer = gameEngine.currentPlayer
       movePlayerMarker(currentPlayer, playerMarkers[currentPlayer])
-
     })
   })
