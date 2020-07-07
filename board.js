@@ -1,8 +1,7 @@
 var Space = require('./space.js')
-var Player = require('./player.js')
 
 module.exports = class Board {
-    constructor(spaceData, playerData) {
+    constructor(spaceData) {
         this.spaces = new Array
         for (var i = 0; i < spaceData.length; i++) {
             this.spaces.push(new Space(
@@ -12,18 +11,6 @@ module.exports = class Board {
               spaceData[i].left)
             )
         }
-        this.players = new Array
-        for (var i = 0; i < playerData.length; i++) {
-            this.players.push(new Player(
-                playerData[i].color,
-                playerData[i].x,
-                playerData[i].y
-            ))
-        }
-    }
-    movePlayer(playerIndex,dieRoll) {
-        this.players[playerIndex].location += dieRoll
-        this.players[playerIndex].location %= this.spaces.length
     }
 }
     

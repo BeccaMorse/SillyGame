@@ -13,11 +13,11 @@ test board class
 add dice and roll capability
 create player markers
 create indicator of whose turn it is
+possibly refactor/  move players to game engine
+TEST the next function
 
 to do:
-possibly refactor/  move players to game engine 
 move things out of index.js / make smaller
 add animation to movement
-TEST the next function
 
 maybe: allow 'select number of players' option.?

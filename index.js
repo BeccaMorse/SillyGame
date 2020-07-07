@@ -63,9 +63,9 @@ var makePlayer = function (canvas, player) {
   return playerMarker
 }
 var movePlayerMarker = function (currentPlayer, playerMarker) {
-  var spaceIndex = gameEngine.board.players[currentPlayer].location
-  playerMarker.top = spaceData[spaceIndex].top * 180 + gameEngine.board.players[currentPlayer].y
-  playerMarker.left = spaceData[spaceIndex].left * 180 + gameEngine.board.players[currentPlayer].x
+  var spaceIndex = gameEngine.players[currentPlayer].location
+  playerMarker.top = spaceData[spaceIndex].top * 180 + gameEngine.players[currentPlayer].y
+  playerMarker.left = spaceData[spaceIndex].left * 180 + gameEngine.players[currentPlayer].x
   // 180 is hardcoded space size, refactor later
 }
 document.addEventListener("DOMContentLoaded", () => { 
@@ -107,8 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
       makeSpace(canvas, gameEngine.board.spaces[i])
     }
     var playerMarkers = []
-    for (i = 0; i < gameEngine.board.players.length; i++) {
-      playerMarkers.push(makePlayer(canvas, gameEngine.board.players[i]))
+    for (i = 0; i < gameEngine.players.length; i++) {
+      playerMarkers.push(makePlayer(canvas, gameEngine.players[i]))
     }
     canvas.on('mouse:down',function () {
       turnIndicator.text = gameEngine.next()
