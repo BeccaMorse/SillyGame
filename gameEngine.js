@@ -24,20 +24,20 @@ module.exports = class GameEngine {
         if (this.gameState == "clickToRoll") {
             this.dieRoll = Math.ceil(Math.random() * 6)
             this.gameState = "clickToMove"
-            return "You rolled " + this.dieRoll + ", click to move"
+            return "You rolled " + this.dieRoll + ": click to move."
           } else if (this.gameState == "clickToMove") {
             this.movePlayer(this.currentPlayer, this.dieRoll)
             var playerColor = this.players[this.currentPlayer].color
             var playerLocation = this.players[this.currentPlayer].location
-            var instructions = this.board.spaces[playerLocation].instructions
+            var instructions = this.board.spaces[playerLocation].instructions + " Click to end your turn."
             this.gameState = "followInstructions"
-            return playerColor + " player, " + instructions
+            return playerColor + " player: " + instructions
           } else if (this.gameState == "followInstructions") {
             this.currentPlayer += 1
             this.currentPlayer %= this.players.length
             var playerColor = this.players[this.currentPlayer].color
             this.gameState = "clickToRoll"
-            return playerColor + " player: Click to roll"
+            return playerColor + " player: Click to roll."
           }
     }
 }
