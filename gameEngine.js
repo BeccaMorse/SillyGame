@@ -40,4 +40,7 @@ module.exports = class GameEngine {
             return playerColor + " player: Click to roll."
           }
     }
+    getCurrentPlayer() {
+      return this.players[this.currentPlayer]
+    }
 }

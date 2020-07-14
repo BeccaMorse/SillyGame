@@ -60,18 +60,21 @@ var makePlayer = function (canvas, player) {
     height: spaceSize / 18
   }))
 }
-function movePlayerMarker (currentPlayer, playerMarker, markerLocation) {
-  markerLocation++
-  playerMarker.top = (spaceData[markerLocation].top + gameEngine.players[currentPlayer].y) * spaceSize
-  playerMarker.left = (spaceData[markerLocation].left + gameEngine.players[currentPlayer].x) * spaceSize
-  
-  var playerLocation = gameEngine.players[currentPlayer].location
+function movePlayerMarker (canvas, playerMarker, markerLocation) {
+  var playerLocation = gameEngine.getCurrentPlayer().location
+  playerMarker.top = (spaceData[markerLocation].top + gameEngine.getCurrentPlayer().y) * spaceSize
+  playerMarker.left = (spaceData[markerLocation].left + gameEngine.getCurrentPlayer().x) * spaceSize
   if(markerLocation != playerLocation) {
+    markerLocation++
+      playerMarker.animate('left', '+=' + spaceSize, {
+        onChange: canvas.renderAll.bind(canvas),
+        duration: 1000,
+      });
     setTimeout(function (){
-      movePlayerMarker(currentPlayer,playerMarker, markerLocation)
+      movePlayerMarker(canvas, playerMarker, markerLocation)
     },1000)
   }
-console.log('location' + markerLocation + 'space index' + playerLocation)
+
 }
 document.addEventListener("DOMContentLoaded", () => { 
     var canvas = new fabric.Canvas('myCanvas')
@@ -114,7 +117,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     canvas.on('mouse:down',function () {
       turnIndicator.text = gameEngine.next()
-      var currentPlayer = gameEngine.currentPlayer
-      movePlayerMarker(currentPlayer, playerMarkers[currentPlayer], playerMarkerLocations[currentPlayer])
+      var currentMarker         = playerMarkers[gameEngine.currentPlayer]
+      var currentMarkerLocation = playerMarkerLocations[gameEngine.currentPlayer]
+      movePlayerMarker(canvas, currentMarker, currentMarkerLocation)
     })
   })
