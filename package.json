@@ -21,7 +21,7 @@
     "fabric": "^3.6.3"
   },
   "devDependencies": {
-    "mocha": "^8.0.1",
+    "mocha": "^8.4.0",
     "parcel": "^1.12.4"
   }
 }
